@@ -55,8 +55,8 @@ $result = $conn->query($query);
             <td><?php echo $row['provincia']; ?></td>
             <td><?php echo $row['telefono']; ?></td>
             <td><?php echo $row['email']; ?></td>
-            <td><a href="editarcliente.php?dni=<?php echo $row['dni']; ?>" class="edit">Editar</a></td>
-            <td><a href="borrarcliente.php?dni=<?php echo $row['dni']; ?>" class="delete">Borrar</a></td>
+            <td><a href="editarcliente.php?dni=<?php echo $row['dni']; ?>" class="edit">📝</a></td>
+            <td><a href="borrarcliente.php?dni=<?php echo $row['dni']; ?>" class="delete">❌</a></td>
         </tr>
     <?php endwhile; ?>
 </table>

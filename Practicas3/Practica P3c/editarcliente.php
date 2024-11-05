@@ -1,7 +1,7 @@
 <?php
 // Incluir el archivo de conexión
 require_once 'Conectar_db.php';
-$conn = conectarDb();
+$conn = conectar_db();
 
 $dni = $_GET['dni'];
 $error = [];
@@ -58,4 +58,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     Dirección: <input type="text" name="direccion" value="<?php echo $cliente['direccion']; ?>"><br>
     Localidad: <input type="text" name="localidad" value="<?php echo $cliente['localidad']; ?>"><br>
     Provincia: <input type="text" name="provincia" value="<?php echo $cliente['provincia']; ?>"><br>
-    Teléfono: <input type="text
+    Teléfono: <input type="text" name="telefono" value="<?php echo $telefono['telefono']; ?>"><br>

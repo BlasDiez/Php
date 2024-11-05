@@ -3,7 +3,7 @@ function conectar_db() {
     $host = "localhost";
     $usuario = "root";
     $password = "";
-    $base_datos = "clientes_db";
+    $base_datos = "clientes_DB";
 
     //Hacemos la conexión
     $link = mysqli_connect($host, $usuario, $password, $base_datos);

@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error['email'] = "Formato de email inválido.";
     }
-    if (!preg_match("/^\d{8}[A-Z]$/", $dni)) {
+    if (!preg_match("/^\d{8}[A-Za-z]$/", $dni)) {
         $error['dni'] = "El DNI debe tener 8 cifras y una letra.";
     }
 
