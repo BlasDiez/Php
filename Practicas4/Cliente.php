@@ -14,7 +14,7 @@ class Cliente {
     public $rol;
 
     public function __construct() {
-        $this->db = ConectarDB::conexion();
+        $this->db = ConectarDB::conectar();
     }
 
     public function crearUsuario($datos) {

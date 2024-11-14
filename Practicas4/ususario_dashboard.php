@@ -7,5 +7,4 @@ if ($_SESSION['rol'] != 'usuario') {
 
 echo "Bienvenido, Usuario";
 
-// Aquí podrías mostrar, editar y eliminar sus propios datos
 ?>

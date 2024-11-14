@@ -6,7 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cliente = new Cliente();
     $usuario = $cliente->buscarPorDni($_POST['dni']);
 
-    if ($usuario && password_verify($_POST['contrasena'], $usuario['contrasena'])) {
+    print_r($usuario);
+
+    if ($usuario && password_verify($_POST['contrasena'], $usuario['password_hash'])) {
         $_SESSION['dni'] = $usuario['dni'];
         $_SESSION['rol'] = $usuario['rol'];
 
