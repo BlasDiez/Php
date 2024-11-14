@@ -6,13 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     $conn = Conectar_db();
-    $stmt = $conn->prepare("INSERT INTO usuarios (username, password, rol) VALUES (?, ?, 'usuario')");
+    $stmt = $conn->prepare("INSERT INTO usuarios (nombre, clave, rol) VALUES (?, ?, 'usuario')");
     $stmt->bind_param("ss", $username, $password);
 
     if ($stmt->execute()) {
         echo "Registro exitoso";
+        echo "<br><a href='index.php'>Ahora puedes iniciar sesión</a>";
     } else {
         echo "Error en el registro";
+        echo "<br><a href='index.php'>Volver</a>";
     }
 }
 ?>

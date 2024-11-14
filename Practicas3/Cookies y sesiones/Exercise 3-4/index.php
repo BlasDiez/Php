@@ -1,4 +1,14 @@
-<?php session_start(); ?>
+<?php
+session_start();
+if (isset($_SESSION['user'])) {
+    if ($_SESSION['user']['rol'] === 'administrador') {
+        header("Location: admin.php");
+    } else {
+        header("Location: peliculas.php");
+    }
+    exit;
+}
+?>
     <!DOCTYPE html>
     <html>
     <head>
