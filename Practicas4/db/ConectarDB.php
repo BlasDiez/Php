@@ -26,5 +26,9 @@ class ConectarDB {
             die("Error de conexión: " . $e->getMessage());
         }
     }
+
+    public static function desconectar() {
+        self::$conexion = null;
+    }
 }
 ?>

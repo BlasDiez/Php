@@ -1,8 +1,8 @@
 <?php
-require_once 'Cliente.php';
+require_once './db/ClienteDB.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $cliente = new Cliente();
+    $clienteDB = new ClienteDB();
     $datos = [
         'dni' => $_POST['dni'],
         'nombre' => $_POST['nombre'],
@@ -15,11 +15,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'rol' => 'usuario'
     ];
 
-    if (!$cliente->buscarPorDni($datos['dni'])) {
-        $cliente->crearUsuario($datos);
-        echo "Usuario registrado correctamente";
-    } else {
-        echo "El DNI ya está registrado";
+    $usuarios = $clienteDB->buscarPorDni($datos['dni']);
+    if ($usuarios === false) {
+        echo "<br><a href='registro.html'>Volver al registro</a>";
+        exit;
+    }
+
+    if ($usuarios !== null) {
+        echo "Error. El usuario ya existe.";
+        echo "<br><a href='registro.html'>Volver al registro</a>";
+        exit;
+    }
+
+    if($clienteDB->crear($datos)) {
+        echo "Usuario creado correctamente";
+        echo "<br><a href='login.html'>Volver al inicio</a>";
     }
 }
 ?>

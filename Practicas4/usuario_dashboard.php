@@ -1,17 +1,17 @@
 <?php
 session_start();
-if ($_SESSION['rol'] !== 'administrador') {
+if ($_SESSION['rol'] !== 'usuario') {
     header("Location: login.html");
     exit;
 }
 
 require_once './db/ClienteDB.php';
-$order = $_GET['order'] ?? 'ASC';
+$dni = $_SESSION['dni'];
 $clienteDB = new ClienteDB();
-$clientes = $clienteDB->obtenerOrdenadosPorNombre($order);
+$cliente = $clienteDB->buscarPorDni($dni);
 
-if ($clientes === false) {
-    die("Error al obtener clientes");
+if ($cliente == false) {
+    die("cliente no encontrado");
 }
 ?>
 
@@ -19,7 +19,7 @@ if ($clientes === false) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Panel de Administración</title>
+    <title>Panel de Usuario</title>
     <style>
         th {
             background-color: orange;
@@ -47,18 +47,9 @@ if ($clientes === false) {
     </style>
 </head>
 <body>
-<h1>Panel de Administración</h1>
+<h1>Panel de Usuario</h1>
 
-<!-- Formulario para Buscar Cliente por DNI -->
-<h2>Buscar Cliente</h2>
-<form action="buscar_cliente.php" method="POST">
-    <label for="dni">Buscar Cliente por DNI:</label>
-    <input type="text" name="dni" id="dni" required>
-    <button type="submit">Buscar</button>
-</form>
-
-<!-- Lista de Clientes con opciones -->
-<h2>Lista de Clientes</h2>
+<h2>Mi usuario</h2>
 <table>
     <tr>
         <th>DNI</th>
@@ -71,7 +62,6 @@ if ($clientes === false) {
         <th>Editar</th>
         <th>Borrar</th>
     </tr>
-        <?php foreach ($clientes as $cliente): ?>
         <tr>
             <td><?php echo htmlspecialchars($cliente->dni); ?></td>
             <td><?php echo htmlspecialchars($cliente->nombre); ?></td>
@@ -81,20 +71,11 @@ if ($clientes === false) {
             <td><?php echo htmlspecialchars($cliente->telefono); ?></td>
             <td><?php echo htmlspecialchars($cliente->email); ?></td>
             <td><a href="editar.php?dni=<?php echo urlencode($cliente->dni); ?>" class="edit">📝</a></td>
-            <td><a href="borrar_cliente_admin.php?dni=<?php echo urlencode($cliente->dni); ?>" class="delete" onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">❌</a></td>
+            <td><a href="borrar_cliente.php?dni=<?php echo urlencode($cliente->dni); ?>" class="delete" onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">❌</a></td>
         </tr>
-        <?php endforeach; ?>
 </table>
-
-<div style="text-align: center; margin-top: 20px;">
-    <a href="registro.html">Nuevo Cliente</a>
-    <div>
-        <a href="?order=ASC">Ordenar Ascendente</a>
-        <a href="?order=DESC">Ordenar Descendente</a>
-    </div>
-</div>
-
 <br>
 <a href="logout.php">Cerrar Sesión</a>
+
 </body>
 </html>
